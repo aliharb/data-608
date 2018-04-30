@@ -1,0 +1,1034 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{k+kn}{from} \PY{n+nn}{dfply} \PY{k}{import} \PY{o}{*}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{plotly}
+          \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{plotly} \PY{k}{as} \PY{n+nn}{py}
+          \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+          \PY{k+kn}{from} \PY{n+nn}{plotly} \PY{k}{import} \PY{n}{tools}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{n}{matplotlib}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k+kn}{from} \PY{n+nn}{pandas}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{scatter\PYZus{}matrix}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+          
+          \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{output\PYZus{}notebook}\PY{p}{,} \PY{n}{show}
+          \PY{k+kn}{from} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{import} \PY{n}{download\PYZus{}plotlyjs}\PY{p}{,} \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{,} \PY{n}{plot}\PY{p}{,} \PY{n}{iplot} \PY{c+c1}{\PYZsh{} offline plotly}
+          
+          \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{arange}\PY{p}{,}\PY{n}{array}\PY{p}{,}\PY{n}{ones}
+          \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+          
+          \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{n}{connected}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \subsection{Import Data}\label{import-data}
+
+Import data into python environment and analize the feilds and
+demensions
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{n}{url}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://raw.githubusercontent.com/charleyferrari/CUNY\PYZus{}DATA\PYZus{}608/master/module4/Data/riverkeeper\PYZus{}data\PYZus{}2013.csv}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{riverKeeper\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m riverKeeper\PYZus{}df Dimension: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m riverKeeper\PYZus{}df Fields: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{dtypes}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m riverKeeper\PYZus{}df EnteroCount field has non\PYZhy{}numeric characters: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{:}\PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textbf{ riverKeeper\_df Dimension: }  (3397, 5) 
+
+\textbf{ riverKeeper\_df Fields: 
+ }  Site                 object
+Date                 object
+EnteroCount          object
+FourDayRainTotal    float64
+SampleCount           int64
+dtype: object 
+
+\textbf{ riverKeeper\_df EnteroCount field has non-numeric characters: 
+ }  17       91
+18    >2420
+19       15
+20       25
+Name: EnteroCount, dtype: object 
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}141}]:}                         Site        Date EnteroCount  FourDayRainTotal  \textbackslash{}
+          0  Hudson above Mohawk River  10/16/2011        1733               1.5   
+          1  Hudson above Mohawk River  10/21/2013           4               0.2   
+          2  Hudson above Mohawk River   9/21/2013          20               0.0   
+          3  Hudson above Mohawk River   8/19/2013           6               0.0   
+          4  Hudson above Mohawk River   7/21/2013          31               0.0   
+          
+             SampleCount  
+          0           35  
+          1           35  
+          2           35  
+          3           35  
+          4           35  
+\end{Verbatim}
+            
+    \subsection{Clean Data}\label{clean-data}
+
+1- Eliminate the non-numeric characters of EnteroCount elements and
+covert the feild type to numeric. 2- Convert date into Time Format
+Strings
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[\PYZca{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coerce}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{d}\PY{p}{)} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m riverKeeper\PYZus{}df Fields: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{dtypes}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m Date Duration }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m Minimum and Maximum Samples Count Per Entry }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SampleCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SampleCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m Minimum and Maximum Four Days Rain Measure Per Entry }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textbf{ riverKeeper\_df Fields: 
+ }  Site                        object
+Date                datetime64[ns]
+EnteroCount                  int64
+FourDayRainTotal           float64
+SampleCount                  int64
+dtype: object 
+
+\textbf{ Date Duration 
+ } 
+min:  2006-09-19 00:00:00
+max:  2013-10-21 00:00:00
+
+ \textbf{ Minimum and Maximum Samples Count Per Entry 
+ } 
+min:  27
+max:  187
+
+ \textbf{ Minimum and Maximum Four Days Rain Measure Per Entry 
+ } 
+min:  0.0
+max:  8.5
+
+    \end{Verbatim}
+
+    \subsection{Visual Representation}\label{visual-representation}
+
+\begin{itemize}
+\tightlist
+\item
+  Find the sites mean
+\item
+  Find best 5 sites
+\item
+  graph results
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{sites} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EnteroCount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{sites} \PY{o}{=} \PY{n}{sites}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m riverKeeper\PYZus{}df Dimension: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sites}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{sites}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textbf{ riverKeeper\_df Dimension: }  (75, 2) 
+
+                                 Site  EnteroCount
+0  Poughkeepsie Drinking Water Intake     8.342105
+1                  Croton Point Beach    15.458333
+2             Stony Point mid-channel    17.340909
+3                  Little Stony Point    17.526316
+4            Poughkeepsie Launch Ramp    17.675676
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{sites} \PY{o}{=} \PY{n}{sites}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{trace} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Bar}\PY{p}{(}
+              \PY{n}{x}\PY{o}{=}\PY{n}{sites}\PY{o}{.}\PY{n}{EnteroCount}\PY{p}{,}
+              \PY{n}{y}\PY{o}{=}\PY{n}{sites}\PY{o}{.}\PY{n}{Site}\PY{p}{,}
+              \PY{n}{orientation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}
+          \PY{p}{)}
+          
+          \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+              \PY{n}{width} \PY{o}{=} \PY{l+m+mi}{800}\PY{p}{,}
+              \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,}
+              \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best and Worst Sites}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{n}{xaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                  \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arial, sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                      \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgrey}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{p}{)}
+              \PY{p}{)}\PY{p}{,}
+              \PY{n}{yaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                  \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sites}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arial, sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                      \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgrey}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{p}{)}\PY{p}{,}
+                  \PY{n}{showticklabels}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                  \PY{n}{tickangle}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{,}
+                  \PY{n}{tickfont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Standard TT, serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}
+                      \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{p}{)}    
+              \PY{p}{)}
+          \PY{p}{)}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{trace}\PY{p}{]}\PY{p}{,} \PY{n}{layout} \PY{o}{=} \PY{n}{layout}\PY{p}{)}
+          
+          \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{k}{def} \PY{n+nf}{PlotResult}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{Title}\PY{p}{,}\PY{n}{Color}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{Color} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{barColor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(50,255,50)}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{barColor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(0,0,255)}\PY{l+s+s1}{\PYZsq{}}
+                  
+              \PY{n}{trace} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Bar}\PY{p}{(}
+                  \PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{EnteroCount}\PY{p}{,}
+                  \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Site}\PY{p}{,}
+                  \PY{n}{orientation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{marker}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{color}\PY{o}{=}\PY{n}{barColor}\PY{p}{,}
+                      \PY{n}{line}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(8,48,107)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{,}
+                      \PY{p}{)}
+                  \PY{p}{)}
+              \PY{p}{)}
+          
+              \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+                  \PY{n}{width} \PY{o}{=} \PY{l+m+mi}{800}\PY{p}{,}
+                  \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,}
+                  \PY{n}{title} \PY{o}{=} \PY{n}{Title}\PY{p}{,}
+                  \PY{n}{xaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arial, sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgrey}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{)}
+                  \PY{p}{)}\PY{p}{,}
+                  \PY{n}{yaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sites}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arial, sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgrey}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{)}\PY{p}{,}
+                      \PY{n}{showticklabels}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                      \PY{n}{tickangle}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{,}
+                      \PY{n}{tickfont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Standard TT, serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{)}    
+                  \PY{p}{)}
+              \PY{p}{)}
+          
+              \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{trace}\PY{p}{]}\PY{p}{,} \PY{n}{layout} \PY{o}{=} \PY{n}{layout}\PY{p}{)}
+          
+              \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{k}{def} \PY{n+nf}{getBestSites\PYZus{}ByDate}\PY{p}{(} \PY{n}{datestr} \PY{p}{)}\PY{p}{:}
+              \PY{n}{SitesByDate} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{datestr}\PY{p}{]}
+              \PY{n}{x}\PY{o}{=}\PY{n}{SitesByDate}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+              \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m No Record For This Date: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{SitesByDate} \PY{o}{=} \PY{n}{SitesByDate}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}  
+                  \PY{n}{SitesByDate} \PY{o}{=} \PY{n}{SitesByDate}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+                  \PY{n}{SitesByDate} \PY{o}{=} \PY{n}{SitesByDate}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                  \PY{n}{SitesByDate} \PY{o}{=} \PY{n}{SitesByDate}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+                  \PY{n}{PlotResult}\PY{p}{(}\PY{n}{SitesByDate}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sites With Lowest EnteroCount For }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{datestr}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{SafeSites} \PY{o}{=} \PY{n}{SitesByDate}\PY{p}{[}\PY{n}{SitesByDate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{31}\PY{p}{]}
+              
+                  \PY{k}{if} \PY{n}{SafeSites}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{PlotResult}\PY{p}{(}\PY{n}{SafeSites}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Safe Sites For }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{datestr}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m None of The Sites is Safe For }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{datestr} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{c+c1}{\PYZsh{}test for desire date}
+          \PY{n}{desireDate}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10/21/2011}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{getBestSites\PYZus{}ByDate}\PY{p}{(}\PY{n}{desireDate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'int'>
+
+    \end{Verbatim}
+
+    
+    
+    
+    
+    \subsection{Question 2}\label{question-2}
+
+Separate the wet from dry days and plot the data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{n}{SitesDry} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{SitesWet} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{SitesDry}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{SitesWet}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m Minimum and Maximum Four Days Rain Measure Per Entry }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SitesDry}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SitesDry}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1m Minimum and Maximum Four Days Rain Measure Per Entry }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SitesWet}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SitesWet}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1266, 5)
+(2131, 5)
+
+ \textbf{ Minimum and Maximum Four Days Rain Measure Per Entry 
+ } 
+min:  1
+max:  10112
+
+ \textbf{ Minimum and Maximum Four Days Rain Measure Per Entry 
+ } 
+min:  0
+max:  24196
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}149}]:}     
+              \PY{n}{dry} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Bar}\PY{p}{(}
+                  \PY{n}{x}\PY{o}{=}\PY{n}{SitesDry}\PY{o}{.}\PY{n}{Site}\PY{p}{,}
+                  \PY{n}{y}\PY{o}{=}\PY{n}{SitesDry}\PY{o}{.}\PY{n}{EnteroCount}\PY{p}{,}
+                  \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{marker}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(200,150,150)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{p}{)}
+              
+              \PY{n}{wet}\PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Bar}\PY{p}{(}
+                  \PY{n}{x}\PY{o}{=}\PY{n}{SitesWet}\PY{o}{.}\PY{n}{Site}\PY{p}{,}
+                  \PY{n}{y}\PY{o}{=}\PY{n}{SitesWet}\PY{o}{.}\PY{n}{EnteroCount}\PY{p}{,}
+                  \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{marker}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(100,100,150)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{p}{)}
+          
+              \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+                  \PY{n}{width} \PY{o}{=} \PY{l+m+mi}{900}\PY{p}{,}
+                  \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,}
+                  \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dry Wet Plot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                  \PY{n}{xaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arial, sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgrey}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{)}\PY{p}{,}
+                      \PY{n}{showticklabels}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                      \PY{n}{tickangle}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{,}
+                      \PY{n}{tickfont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Standard TT, serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{)}    
+                  \PY{p}{)}\PY{p}{,}
+                  \PY{n}{yaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                      \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sites}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arial, sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgrey}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{)}\PY{p}{,}
+                      \PY{n}{showticklabels}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                      \PY{n}{tickangle}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{,}
+                      \PY{n}{tickfont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                          \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Standard TT, serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{)}    
+                  \PY{p}{)}
+              \PY{p}{)}
+          
+              \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{dry}\PY{p}{,}\PY{n}{wet}\PY{p}{]}\PY{p}{,} \PY{n}{layout} \PY{o}{=} \PY{n}{layout}\PY{p}{)}
+          
+              \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    The above chart shows that some increasing number of entrocount for
+rainy days. Lets check the correlation of all the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{n}{xi} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{FourDayRainTotal}
+          \PY{n}{y} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{EnteroCount}
+          
+          \PY{c+c1}{\PYZsh{} Generated linear fit}
+          \PY{n}{slope}\PY{p}{,} \PY{n}{intercept}\PY{p}{,} \PY{n}{r\PYZus{}value}\PY{p}{,} \PY{n}{p\PYZus{}value}\PY{p}{,} \PY{n}{std\PYZus{}err} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{linregress}\PY{p}{(}\PY{n}{xi}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+          \PY{n}{line} \PY{o}{=} \PY{n}{slope}\PY{o}{*}\PY{n}{xi}\PY{o}{+}\PY{n}{intercept}
+          
+          \PY{c+c1}{\PYZsh{} Creating the dataset, and generating the plot}
+          \PY{n}{trace1} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}
+                            \PY{n}{x}\PY{o}{=}\PY{n}{xi}\PY{p}{,}
+                            \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,}
+                            \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{markers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                            \PY{n}{marker}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(255, 127, 14)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}
+                            \PY{p}{)}
+          
+          \PY{n}{trace2} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}
+                            \PY{n}{x}\PY{o}{=}\PY{n}{xi}\PY{p}{,}
+                            \PY{n}{y}\PY{o}{=}\PY{n}{line}\PY{p}{,}
+                            \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                            \PY{n}{marker}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(31, 119, 180)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fit}\PY{l+s+s1}{\PYZsq{}}
+                            \PY{p}{)}
+          
+          \PY{n}{annotation} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Annotation}\PY{p}{(}
+                            \PY{n}{x}\PY{o}{=}\PY{l+m+mf}{3.5}\PY{p}{,}
+                            \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{23.5}\PY{p}{,}
+                            \PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}R\PYZca{}2 = 0.9551,}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{Y = 0.716X + 19.18\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                            \PY{n}{showarrow}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                            \PY{n}{font}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{Font}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+                            \PY{p}{)}
+          \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+                          \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear Fit in Python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{plot\PYZus{}bgcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(229, 229, 229)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                            \PY{n}{xaxis}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{XAxis}\PY{p}{(}\PY{n}{zerolinecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(255,255,255)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{gridcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(255,255,255)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{yaxis}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{YAxis}\PY{p}{(}\PY{n}{zerolinecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(255,255,255)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{gridcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(255,255,255)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{annotations}\PY{o}{=}\PY{p}{[}\PY{n}{annotation}\PY{p}{]}
+                          \PY{p}{)}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{trace1}\PY{p}{,}\PY{n}{trace2}\PY{p}{]}\PY{p}{,} \PY{n}{layout} \PY{o}{=} \PY{n}{layout}\PY{p}{)}
+          
+          \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    Lets take look into all sites to find if there is correlation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{n}{tmpsites}\PY{o}{=}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{tmpsites}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{n}{sites} \PY{o}{=} \PY{n}{tmpsites}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{corrolation}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{dd}\PY{o}{=}\PY{p}{[}\PY{n}{sites}\PY{o}{.}\PY{n}{get\PYZus{}group}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{sites}\PY{o}{.}\PY{n}{groups}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dd}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{tmp}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{dd}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+              \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{5}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{x}\PY{o}{=}\PY{n}{tmp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{y}\PY{o}{=}\PY{n}{tmp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{m}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{m}\PY{o}{*}\PY{n}{x} \PY{o}{+} \PY{n}{b}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{corrolation}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+               
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{n}{sitesdf} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EnteroCount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{sitesdf} \PY{o}{=} \PY{n}{sitesdf}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{tmpy} \PY{o}{=} \PY{n}{riverKeeper\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{riverKeeper\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{tmpy} \PY{o}{=} \PY{n}{tmpy}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Site}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{tmpy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{corrolation}
+\end{Verbatim}
+
+
+    Plot the correlations of all sites
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{n}{s} \PY{o}{=}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{trace0} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}
+              \PY{n}{x}\PY{o}{=}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FourDayRainTotal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+              \PY{n}{y}\PY{o}{=}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EnteroCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+              \PY{n}{text} \PY{o}{=}\PY{n+nb}{round}\PY{p}{(}\PY{n}{s}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
+              \PY{n}{hoverinfo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{markers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{marker}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                  \PY{n}{size}\PY{o}{=}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+              \PY{p}{)}
+          \PY{p}{)}
+          
+          \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{trace0}\PY{p}{]}
+          
+          
+          \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bubblechart\PYZhy{}color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}155}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Highest correlation: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lowest correlation: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{weakCorr} \PY{o}{=} \PY{n}{sitesdf}\PY{p}{[}\PY{p}{(}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{]}
+          \PY{n}{MediumCorr} \PY{o}{=} \PY{n}{sitesdf}\PY{p}{[}\PY{p}{(}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{60}\PY{p}{)}\PY{p}{]}
+          \PY{n}{StrongCorr} \PY{o}{=} \PY{n}{sitesdf}\PY{p}{[}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{]}
+          \PY{n}{negativeCorr}\PY{o}{=} \PY{n}{sitesdf}\PY{p}{[}\PY{n}{sitesdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Highest correlation:  72.9229222516908
+Lowest correlation:  -16.2647282518362
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}156}]:} \PY{n}{weakCorr}\PY{o}{=}\PY{n}{weakCorr}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The following shows a little or no relationship between rain and enteroCount }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{weakCorr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The following shows a little or no relationship between rain and enteroCount 
+
+
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+                                       Site  EnteroCount  FourDayRainTotal  \
+0                         Nyack Launch Ramp   105.032787          0.506557   
+1       Kingsland Pt. Park- Pocantico River   907.857143          0.602381   
+2                            Ossining Beach   206.957447          0.457447   
+3                 Mohawk River at Waterford   621.057143          0.631429   
+4                          Cedar Pond Brook   199.702128          0.482979   
+5                      Pier 96 Kayak Launch    40.205128          0.674359   
+6   Newtown Creek- Metropolitan Ave. Bridge  2953.684211          0.852632   
+7                          Castle Point, NJ    37.076923          0.664103   
+8                      79th St. mid-channel    47.204082          0.861224   
+9        Poughkeepsie Drinking Water Intake     8.342105          0.350000   
+10                           125th St. Pier   179.696970          0.771212   
+11          Harlem River- Washington Bridge   127.893617          0.810638   
+12               Newtown Creek- Dutch Kills  1205.087719          0.852632   
+13                    GW Bridge mid-channel    58.183673          0.824490   
+14                 Norrie Point mid-channel    43.777778          0.311111   
+15          Port Ewen Drinking Water Intake    62.135135          0.348649   
+16                         Tarrytown Marina  2205.666667          0.814815   
+17         Harlem River- Willis Ave. Bridge   211.638298          0.810638   
+18                          Fort Montgomery    88.138889          0.302778   
+19                            Piermont Pier   482.165775          0.533690   
+20                            Furnace Brook   172.520833          0.466667   
+21                   West Point STP Outfall    91.194444          0.280556   
+22                     Kingston STP Outfall   481.125000          0.335000   
+23                      Yonkers STP Outfall    66.960784          0.737255   
+24                     Ulster Landing Beach    94.694444          0.341667   
+25                            Gowanus Canal  4206.837838          0.816216   
+26          Peekskill Riverfront Green Park   187.285714          0.476190   
+
+         corr  
+0   28.540755  
+1   26.706380  
+2   26.004660  
+3   23.963273  
+4   23.673319  
+5   22.427859  
+6   20.166309  
+7   19.176326  
+8   18.810021  
+9   16.581934  
+10  15.393110  
+11  14.397711  
+12  14.097164  
+13  14.033061  
+14  12.705688  
+15  11.766352  
+16  11.101023  
+17  10.243600  
+18  10.062420  
+19   9.073495  
+20   8.984210  
+21   7.790282  
+22   7.208612  
+23   6.948668  
+24   6.520843  
+25   5.892397  
+26   5.677540  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}157}]:} \PY{n}{MediumCorr}\PY{o}{=}\PY{n}{MediumCorr}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The following shows a medium relationship between rain and enteroCount }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{MediumCorr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The following shows a medium relationship between rain and enteroCount 
+
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+                             Site  EnteroCount  FourDayRainTotal       corr
+0       Coxsackie Waterfront Park   170.457143          0.605714  57.161971
+1        Catskill Creek- East End   261.238095          0.578571  56.485166
+2                       Castleton   186.000000          0.588571  55.208985
+3       Island Creek/Normans Kill   431.828571          0.642857  54.343038
+4             Hudson Landing Ramp   174.783784          0.583784  54.146751
+5    Rondout- Eddyville Anchorage   265.200000          0.366667  53.406281
+6            Kingston Point Beach    30.558140          0.341860  50.401141
+7                Coeymans Landing   186.555556          0.594444  49.008685
+8    Hudson River above Troy Lock   331.540541          0.629730  47.003849
+9            Catskill Launch Ramp   132.378378          0.605405  46.984761
+10               Marlboro Landing    85.142857          0.291429  46.812746
+11                 Saw Mill River  1455.760000          0.742000  46.762533
+12             Albany Rowing Dock   280.944444          0.630556  46.062036
+13   Dunn Memorial Bridge- Albany   357.973684          0.626316  44.116311
+14          Bethlehem Launch Ramp   231.694444          0.569444  43.573352
+15      Hudson above Mohawk River   223.685714          0.631429  43.306105
+16  Rondout- Kingston Public Dock   313.564103          0.341026  43.084294
+17           Newburgh Launch Ramp   351.052632          0.368421  42.714274
+18      Congress St. Bridge- Troy   247.315789          0.626316  41.695130
+19           Upper Sparkill Creek  1296.072727          0.526061  39.999551
+20                    Inbocht Bay   127.694444          0.583333  39.999154
+21                  Beacon Harbor    52.657895          0.368421  39.793608
+22             Malden Launch Ramp   107.555556          0.575000  38.196620
+23      Emeline Beach- Haverstraw   298.078947          0.484211  34.195238
+24             Croton Point Beach    15.458333          0.464583  33.442129
+25               Annesville Creek    83.421053          0.484211  32.401669
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{n}{StrongCorr}\PY{o}{=}\PY{n}{StrongCorr}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The following shows a strong relationship between rain and enteroCount }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{StrongCorr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The following shows a strong relationship between rain and enteroCount 
+
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+                                       Site  EnteroCount  FourDayRainTotal  \
+0                   Gay's Point mid-channel   193.888889          0.580556   
+1                  Norrie Point Yacht Basin   128.805556          0.311111   
+2                   The Battery mid-channel    30.163265          0.859184   
+3                     Esopus Creek Entrance   263.558140          0.506977   
+4                          Wappingers Creek    30.057143          0.291429   
+5                     TZ Bridge mid-channel    21.438596          0.701754   
+6                         Esopus Creek West   224.571429          0.464286   
+7                  Poughkeepsie Launch Ramp    17.675676          0.318919   
+8   East River mid-channel at Roosevelt Is.    48.250000          0.797917   
+9                                    Athens   201.314286          0.597143   
+10                     Dyckman Street Beach    30.236842          0.676316   
+11       East River mid-channel at 23rd St.    45.340000          0.766000   
+12             Catskill Creek- First Bridge   305.947368          0.600000   
+
+         corr  
+0   72.922922  
+1   71.881011  
+2   69.942560  
+3   69.336159  
+4   68.761442  
+5   67.633682  
+6   65.449551  
+7   63.255110  
+8   62.789035  
+9   62.070292  
+10  60.708378  
+11  60.134110  
+12  60.013566  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}159}]:} \PY{n}{negativeCorr}\PY{o}{=}\PY{n}{negativeCorr}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{corr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The following shows a few sites where having negative weak relationship between rain and enteroCount }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{negativeCorr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The following shows a few sites where having negative weak relationship between rain and enteroCount 
+
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+                         Site  EnteroCount  FourDayRainTotal       corr
+0  Haverstraw Bay mid-channel    18.708333          0.466667 -16.264728
+1          Little Stony Point    17.526316          0.368421 -15.900529
+2     Stony Point mid-channel    17.340909          0.461364  -9.054275
+3         Yonkers mid-channel    25.019231          0.736538  -7.339773
+4      Orangetown STP Outfall   854.192982          0.615789  -5.306931
+5    North River STP at 145th   200.106383          0.851064  -1.000642
+6             Irvington Beach    28.805556          0.405556  -0.739956
+7              Tivoli Landing    92.702703          0.413514  -0.716477
+8          Cold Spring Harbor    22.542857          0.305714  -0.693020
+    \end{verbatim}
+
+    
+    The results shows correlation between rain and enterocount varies from
+sites to another.In some areas, rain increases the number of enterocount
+and others has no effect at all. This indicates, in some sites the
+locations and the surrounding environment has a great impact of number
+of the entercount.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
