@@ -1,4 +1,4 @@
-,ProviderID,Hospital,State,City,County,Zip,Address,Door to diagnostic,Diagnostic time of admitted patients,Admission waiting time for getting a room ,ER Volume,Left before being seen,Diagnostic time of discharged patients,Latitude,Longitude
+ProviderID,Hospital,State,City,County,Zip,Address,Door to diagnostic,Diagnostic time of admitted patients,Admission waiting time for getting a room ,ER Volume,Left before being seen,Diagnostic time of discharged patients,Latitude,Longitude
 1,400079,HOSP COMUNITARIO BUEN SAMARITANO,PR,AGUADILLA,AGUADILLA,603,CARR.2 KM.1.4 AVE. SEVERIANO CUEVAS #18,Not Available,1228,405,Not Available,Not Available,Not Available,18.448619,-67.13422
 2,400087,HOSPITAL DR CAYETANO COLL Y TOSTE,PR,ARECIBO,ARECIBO,613,CARRETERA 129 KM.1 AVENIDA SAN LUIS,Not Available,873,224,Not Available,Not Available,Not Available,18.458093,-66.732732
 3,400117,HOSPITAL DR SUSONI INC,PR,ARECIBO,ARECIBO,614,55 PALM ST,Not Available,992,210,Not Available,Not Available,Not Available,18.429675,-66.674506
