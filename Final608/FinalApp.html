@@ -1,0 +1,131 @@
+
+<html>
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<p>
+The app will help resident in the United States to find best hospital services in their area based on hospitals records. 
+This app focuses on waiting and diagnostic duration for an ER patients. 
+It also highlights the annual capacity levels indicated by the size and the color coded bubbles.
+<p>
+<br>Annual patients:
+<ul>
+  <li> Red: 60,000+ </li>
+  <li> Orange: 40,000 to 59,999</li>
+  <li> Light Blue: 20,000 to 39,999</li>
+  <li> Blue: 0 to 19,999</li>
+</ul>
+<br>
+
+<!-- Plotly chart will be drawn inside this DIV -->
+<div id="graphDiv"></div>
+  <script>
+Plotly.d3.csv('https://raw.githubusercontent.com/aliharb/data-608/master/Final608/EffectiveCareWaitingTime.csv', function(err, rows){
+  
+  var classArray = unpack(rows, 'class');
+  var classes = [...new Set(classArray)];
+
+  function unpack(rows, key) {
+    return rows.map(function(row) { return row[key]; });
+  }
+  
+  var HospitalName = unpack(rows, 'Hospital'),
+	WaitingTobeServed = unpack(rows, 'Door to diagnostic'),
+    AdmittedDiagnosticTime = unpack(rows, 'Diagnostic time of admitted patients'),
+    DischargedDiagnosticTime = unpack(rows, 'Diagnostic time of discharged patients'),
+    VolumeScale = unpack(rows,'ER Volume'),
+	AdmissionwaitingTime = unpack(rows,'Admission waiting time for getting a room '),
+	LeftBeforeSeen = unpack(rows,'Left before being seen'),
+	scl = [[10,'rgb(5, 10, 172)'],[20,'rgb(40, 60, 190)'],[30,'rgb(70, 100, 245)'], [40,'rgb(90, 120, 245)']],
+	volumeLevel=[],
+    hoverText = [];
+
+	
+  for ( var i = 0 ; i < HospitalName.length; i++) {
+  var level=20/VolumeScale[i];
+  var currentText =" "+ HospitalName[i] + "<br> Waiting for Diagnostic:" + WaitingTobeServed[i]
+		+"<br> Diagnostic Duration (Discharged):"+DischargedDiagnosticTime[i]
+		+"<br> Diagnostic Duration (Admitted):"+AdmittedDiagnosticTime[i]
+		+"<br> Admition Waiting Time:"+AdmissionwaitingTime[i]
+		+"<br> % of patients didn't wait:"+LeftBeforeSeen[i];
+  volumeLevel.push(level);
+  hoverText.push(currentText);
+}
+  var data = classes.map(function(classes) {
+    var rowsFiltered = rows.filter(function(row) {
+        return (row.class === classes);
+    });
+    return {
+       type: 'scattermapbox',
+       name: classes,
+	   text: hoverText,
+       lat: unpack(rowsFiltered, 'Latitude'),
+       lon: unpack(rowsFiltered, 'Longitude'),
+	   marker: {
+         size: volumeLevel,
+		 opacity: 0.8,
+		 color: unpack(rows, 'ER Volume'),
+         reversescale: true,
+         autocolorscale: false,
+         line: {
+           color: 'black',
+            width: 2
+            },
+		},
+		colorscale: scl
+    };
+  });
+  
+  var layout = {
+     title: 'US Hospitals ER Diagnostic and Waiting Duration',
+	 showocean: true,
+     oceancolor: 'rgb(0, 255, 255)',
+     font: {
+         color: 'white'
+     },
+    dragmode: 'zoom', 
+    mapbox: {
+      center: {
+        lat: 38.03697222, 
+        lon: -90.70916722
+      }, 
+      domain: {
+        x: [0, 1], 
+        y: [0, 1]
+      }, 
+      style: 'dark', 
+      zoom: 1
+    }, 
+    margin: {
+      r: 20, 
+      t: 40, 
+      b: 20, 
+      l: 20, 
+      pad: 0
+    }, 
+    paper_bgcolor: '#191A1A', 
+    plot_bgcolor: '#191A1A', 
+    showlegend: true,
+     annotations: [{
+         x: 0,
+       y: 0,
+       xref: 'paper',
+       yref: 'paper',
+         text: 'Source: <a href="https://data.medicare.gov/data/hospital-compare/" style="color: rgb(255,255,255)">Data.Medicare.gov</a>',
+         showarrow: false
+     }]
+  };
+  
+  Plotly.setPlotConfig({
+    mapboxAccessToken: 'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ'
+  });
+  
+  Plotly.plot('graphDiv', data, layout);
+});
+
+  </script>
+</div>
+</body>
+</html>
