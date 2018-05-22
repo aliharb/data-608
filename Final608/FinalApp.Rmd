@@ -1,0 +1,122 @@
+---
+title: "Final Project/-608"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Headers
+
+Import libraries to manipulate and clean the dataset
+
+```{r warning=FALSE, message=FALSE}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(sqldf)
+library(reshape)
+library(zipcode)
+```
+
+## Get Data 
+
+Load data to the R environment 
+
+```{r}
+EffectiveCaredataHospital <- read.csv(file="/Users/Admin/Documents/R/Timely and Effective Care Hospital.csv", header=TRUE, sep=",")
+```
+
+## Clean Data
+
+Drop none needed column fields
+
+```{r}
+EffectiveCaredata <- select(EffectiveCaredataHospital,-Measure.Start.Date,-Measure.End.Date,-Footnote,-Measure.ID)
+```
+
+Find the measure variables
+
+```{r}
+EffectiveCaredata$Measure.Name[!duplicated(EffectiveCaredata$Measure.Name)]
+```
+
+Select the needed Variable for measure regarding waiting time 
+
+Door to diagnostic eval: waiting for diagnostic 
+ED1: diagnostic time of admitted patients 
+Emergency department volume: Number of patients per year
+Ed2: admission waiting time for getting a room 
+Left before being seen: percentage of patient did not get diagnostic
+opt18: diagnostic time of discharged patients
+
+```{r warning=FALSE, message=FALSE}
+
+EffectiveCaredata<-filter(EffectiveCaredata, Measure.Name == "ED1" |
+         Measure.Name == "ED2" |
+         Measure.Name == "Emergency department volume" |
+         Measure.Name == "Door to diagnostic eval" |
+         Measure.Name == "Left before being seen" |
+         Measure.Name == "OP 18")
+co=c(EffectiveCaredata$Hospital.Name,EffectiveCaredata$Provider.ID)
+
+EffectiveCaredata=select(EffectiveCaredata,Measure.Name,Sample,Provider.ID,Hospital.Name,Address,City,State,ZIP.Code,County.Name,Score)
+
+```
+
+Change the categorical volume into numeric level  
+
+```{r}
+EffectiveCaredata$Score[EffectiveCaredata["Score"] == "Very High (60,000+ patients annually)"]<-1
+EffectiveCaredata$Score[EffectiveCaredata["Score"] == "High (40,000 - 59,999 patients annually)"]<-2
+EffectiveCaredata$Score[EffectiveCaredata["Score"] == "Medium (20,000 - 39,999 patients annually)"]<-3
+EffectiveCaredata$Score[EffectiveCaredata["Score"] == "Low (0 - 19,999 patients annually)"]<-4
+
+```
+
+Pivot the measure variables into columns and order by zipcode
+```{r warning=FALSE, message=FALSE}
+EffectiveCaredata<-cast(EffectiveCaredata, Provider.ID+Hospital.Name+State+City+County.Name+ZIP.Code+Address~Measure.Name)
+EffectiveCaredata=as.data.frame(EffectiveCaredata)
+EffectiveCaredata<-EffectiveCaredata[order(EffectiveCaredata$ZIP.Code),]
+row.names(EffectiveCaredata) <- NULL
+```
+
+Load the zip code dataset to get latitude and longitude of hospitals locations.
+
+```{r}
+data(zipcode)
+colnames(zipcode)[1]<-"ZIP.Code"
+zipcode<-transform(zipcode, ZIP.Code = as.numeric(ZIP.Code))
+zipcode<-transform(zipcode, city = toupper(city))
+```
+
+Get the latitude and lontitude for all hospitals
+
+```{r}
+
+tempdatframe<-data.frame()
+
+for(i in 1:nrow(EffectiveCaredata)){
+  temp<-zipcode[zipcode$ZIP.Code==EffectiveCaredata[i,6],]
+  tempdatframe<-rbind(tempdatframe,temp)
+}
+
+tempdatframe<-select(tempdatframe,-ZIP.Code,-city,-state)
+
+EffectiveCareWithLocation<-data.frame()
+EffectiveCareWithLocation<-cbind(EffectiveCaredata,tempdatframe)
+row.names(EffectiveCareWithLocation) <- NULL
+colnames(EffectiveCareWithLocation)<-c("Provider.ID","Hospital","State","City","County","Zip","Address",
+                                       "Door to diagnostic","Diagnostic time of admitted patients",
+                                       "Admission waiting time for getting a room ","ER Volume",
+                                       "Left before being seen","Diagnostic time of discharged patients",
+                                       "Latitude","Longitude")
+
+```
+
+Save data to file EffectiveCareWaitingTime.csv
+```{r}
+write.csv(EffectiveCareWithLocation, file = "EffectiveCareWaitingTime.csv")
+```
